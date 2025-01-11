@@ -20,6 +20,7 @@ asyncpg = "^0.30.0"
 pyjwt = "^2.10.1"
 fernet = "^1.0.1"
 cryptography = "^44.0.0"
+httpx = "^0.28.1"
 
 [build-system]
 requires = ["poetry-core"]

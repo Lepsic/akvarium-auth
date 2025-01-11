@@ -64,6 +64,11 @@ class Jwt(_Settings):
     EXPIRE_TIME_REFRESH: pydantic.PositiveInt
 
 
+class TransactionService(_Settings):
+    URL: pydantic.AnyUrl
+    TOKEN: pydantic.SecretStr
+
+
 class Secret(_Settings):
     PASSWORD_CRYPTO_KEY: pydantic.SecretStr
 
@@ -93,6 +98,7 @@ class Settings(_Settings):
     POSTGRES_AUTH: Postgresql
     JWT: Jwt
     SECRET: Secret
+    TRANSACTION: TransactionService
 
 
 

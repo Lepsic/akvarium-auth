@@ -20,6 +20,8 @@ Examples:
 """
 
 from app.internal.services import Services
+from app.internal.repository import Repositories
+from app.internal.client import Clients
 from app.pkg.connectors import Connectors, SqlAlchemy
 from app.pkg.models.core import Container, Containers
 from app.pkg.models.core.containers import Resource
@@ -31,6 +33,8 @@ __containers__ = Containers(
     pkg_name=__name__,
     containers=[
         Container(container=Services),
+        Container(container=Repositories),
+        Container(container=Clients),
         Resource(
             container=Connectors,
             depends_on=[Container(container=SqlAlchemy)],
