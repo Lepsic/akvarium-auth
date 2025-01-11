@@ -6,7 +6,7 @@ from typing import TypeVar
 from app.pkg.models.base import BaseModel
 from logging import Logger
 from app.pkg.logger import get_logger
-
+from app.pkg.models.base import BaseClientException
 Command = TypeVar("Command", bound=BaseModel)
 
 
@@ -48,7 +48,12 @@ class HttpRequest:
 
 				if response.is_success:
 					return response
-
+				self.logger.exception("Request isn't success %s", response.text)
+				raise BaseClientException(
+					client_name=self.client_name,
+					status_code=response.status_code,
+					message=response.text,
+				)
 			except httpx.HTTPError as exception:
 				self.logger.error(
 					msg=f"Http client error {exception}",

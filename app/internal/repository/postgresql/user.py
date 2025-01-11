@@ -6,7 +6,7 @@ import sqlalchemy
 
 class UserRepository(Repository):
 
-	async def create_user(self, cmd: models.app.user_schema.CreateUserCommand) -> models.app.user_schema.User:
+	async def create(self, cmd: models.app.user_schema.CreateUserCommand) -> models.app.user_schema.User:
 		async with get_connection() as connection:
 			user = await connection.execute(
 				sqlalchemy.insert(

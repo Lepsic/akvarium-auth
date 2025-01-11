@@ -26,8 +26,12 @@ class UserService:
 	async def create(self, cmd: models.app.user_schema.CreateUserCommand):
 		cmd.password = self.__crypto_service.encrypt(cmd.password)
 
-		user = await self.__user_repository.create_user(cmd=cmd)
-		await self.__transaction_client.create_balance(cmd=user)
+		user = await self.__user_repository.create(cmd=cmd)
+		await self.__transaction_client.create_balance(
+			cmd=models.app.transaction.CreateBalance(
+				user_id=user.id,
+			)
+		)
 		return user
 
 	async def read_by_login(self, cmd: models.app.auth.AuthRequest) -> models.app.user_schema.User:

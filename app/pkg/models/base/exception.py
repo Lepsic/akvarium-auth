@@ -6,7 +6,10 @@ from fastapi import HTTPException
 from starlette import status
 
 
-__all__ = ["BaseAPIException"]
+__all__ = [
+    "BaseAPIException",
+    "BaseClientException",
+]
 
 
 class BaseAPIException(HTTPException):
@@ -69,3 +72,10 @@ class BaseAPIException(HTTPException):
                 },
             },
         }
+
+
+class BaseClientException(BaseAPIException):
+    def __init__(self, client_name: str, status_code: int = 503, message: str = ""):
+        super().__init__(
+            message=f"{client_name} is not available now \n status_code: {status_code} message: {message}"
+        )
